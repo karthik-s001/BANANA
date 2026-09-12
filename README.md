@@ -68,13 +68,13 @@ For Software:
 
 # Screenshots (Add at least 3)
 
-![Screenshot1](<img width="1916" height="897" alt="er" src="https://github.com/user-attachments/assets/974f4b6a-15c7-4934-a54f-85c37709cfa2" />
+![Screenshot1](asset/er.png)
+
+
+![Screenshot2](asset/sxd.png>
 ) 
 
-![Screenshot2](<img width="1907" height="928" alt="sxd" src="https://github.com/user-attachments/assets/462344aa-2ad8-4fed-ace9-2927e86bbd2b" />
-) 
-
-![Screenshot3](<img width="1225" height="767" alt="w" src="https://github.com/user-attachments/assets/164122c9-e18d-4755-858a-5207eb68c820" />
+![Screenshot3](asset/w.png>
 ) 
 
 # Diagrams

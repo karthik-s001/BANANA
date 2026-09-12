@@ -69,12 +69,12 @@ For Software:
 # Screenshots (Add at least 3)
 
 ![Screenshot1](asset/er.png)
-) 
+
 
 ![Screenshot2](asset/sxd.png>
 ) 
 
-![Screenshot3](<img width="1225" height="767" alt="w" src="https://github.com/user-attachments/assets/164122c9-e18d-4755-858a-5207eb68c820" />
+![Screenshot3](asset/w.png>
 ) 
 
 # Diagrams

@@ -71,11 +71,9 @@ For Software:
 ![Screenshot1](asset/er.png)
 
 
-![Screenshot2](asset/sxd.png>
-) 
+![Screenshot2](asset/sxd.png)
 
-![Screenshot3](asset/w.png>
-) 
+![Screenshot3](asset/w.png)
 
 # Diagrams
 

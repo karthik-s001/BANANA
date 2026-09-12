@@ -1,68 +1,95 @@
-# Banana AI Judge
+# Banana AI Judge 
 
-The world's most unnecessary banana analysis system. Real computer vision
-(OpenCV + NumPy) detects a banana in a photo — regardless of its color —
-and measures its curvature. Everything after that (mood, drama,
-fortunes) is deliberately, deterministically silly.
+## Basic Details
 
-## Setup
+### Team Name: Nexora
 
-```
+### Team Members
+
+Member 1: KARTHIK SANKAR - [CALICUT UNIVERSITY OF INSTITUTE AND ENGINEERING TECHNOLOGY ]
+Member 2: ABHINAV TP - [CALICUT UNIVERSITY OF INSTITUTE AND ENGINEERING TECHNOLOGY
+
+### Project Description
+Banana AI Judge is a fun Flask web app that lets users upload banana photos, checks whether the image contains a banana using YOLO-based detection, and then analyzes the banana's bend, curvature, and personality-like stats. The project combines computer vision, a silly judge system, compatibility testing, fortune telling, and a useless but entertaining survival mini-game.
+
+### The Problem (that doesn't exist)
+The world does not actually need another banana analysis tool, but if it is going to exist, it should at least be accurate about one very important thing: only bananas should be accepted. The original project had a shape-based detector that could mistakenly accept non-banana objects, so we upgraded it to a strict banana-only detection gate.
+
+### The Solution (that nobody asked for)
+We built a Banana AI Judge that uses a real pretrained YOLO object detection model to confirm the presence of a banana before any analysis begins. Once a banana is detected, the app keeps the existing Banana AI Judge workflow, compatibility animation, statistics, funny verdicts, and the Banana Survival Test game intact.
+
+## Technical Details
+
+### Technologies/Components Used
+For Software:
+
+- Python
+- Flask
+- OpenCV
+- NumPy
+- Ultralytics YOLO
+- HTML, CSS, JavaScript
+- Jinja2 templates
+
+For Hardware:
+
+- No special hardware required
+- Works on a standard laptop/desktop computer
+- Internet connection only needed for first-time YOLO model download
+
+### Implementation
+For Software:
+
+# Installation
+
+```bash
 pip install -r requirements.txt
+```
+
+# Run
+
+```bash
 python app.py
 ```
 
-Then open **http://127.0.0.1:5000** in your browser.
+Then open:
 
-Works on Windows, Linux, and Android (e.g. via Termux) anywhere Python 3
-and the packages in `requirements.txt` can be installed.
-
-## How detection works (no color assumptions)
-
-`app.py` never thresholds on hue. It combines:
-
-- **GrabCut** foreground/background segmentation
-- **Canny edges** + morphological closing as a reinforcing signal
-- **Contour geometry**: aspect ratio, solidity, extent, and area
-
-to decide whether the dominant foreground blob is "banana-shaped"
-(elongated, imperfectly convex). This means green, yellow, brown,
-spotted, and overripe bananas are all treated the same way. The
-detection step (`locate_banana_contour`) is isolated specifically so a
-trained detector (e.g. YOLO) could be dropped in ahead of it later,
-handing back a bounding box/mask in the same shape.
-
-## Curvature
-
-The banana's convex hull gives approximate endpoints (the two hull
-points farthest apart). The straight-line distance between them is the
-reference. Every contour point's perpendicular distance from that line
-is checked; the largest one is the "bend," and:
-
-```
-bend_percentage = max_bend_distance / straight_line_distance * 100
+```text
+http://127.0.0.1:5000
 ```
 
-- 0–8%: STRAIGHT
-- 8–18%: SLIGHTLY CURVED
-- 18–30%: CURVED
-- 30%+: EXTREMELY CURVED
+### Project Documentation
+For Software:
 
-## Endpoints
+- `app.py` handles the Flask backend, YOLO banana detection, banana analysis, compatibility endpoint, statistics, and routes.
+- `templates/index.html` contains the web UI structure.
+- `static/style.css` contains the styling, animations, and mini-game visuals.
+- `static/script.js` handles frontend interactions, compatibility animation, and the Banana Survival Test game.
 
-- `GET /` — the web app
-- `POST /analyze` — upload one image (`image` field), get a full judgement
-- `POST /compatibility` — upload two images (`image1`, `image2`), get a
-  compatibility score
-- `GET /fortune` — a fresh random fortune
-- `GET /stats` — running session statistics
-- `GET /uploads/<file>` — annotated result images
+# Screenshots (Add at least 3)
 
-## Notes
+![Screenshot1](screenshot1.png) *Main Banana AI Judge upload and result page showing the app interface.*
 
-- No database — statistics are kept in memory for the life of the
-  server process.
-- No paid or external APIs.
-- Terminal `print()` output avoids emojis on purpose (Windows consoles
-  can raise `UnicodeEncodeError` on some code pages). Emojis are used
-  freely in the HTML/CSS/JS front end.
+![Screenshot2](screenshot2.png) *Banana Compatibility section with the love scanner animation.*
+
+![Screenshot3](screenshot3.png) *Banana Survival Test game panel in action.*
+
+# Diagrams
+
+![Workflow](workflow.png) *Workflow showing upload → YOLO banana detection → analysis for accepted bananas and immediate rejection for non-bananas.*
+
+For Hardware:
+
+# Schematic & Circuit
+
+![Circuit](circuit.png) *No hardware circuit required for this software-only project.*
+
+![Schematic](schematic.png) *No hardware schematic required for this software-only project.*
+
+# Build Photos
+
+![Components](components.png) *No external physical components required for this project.*
+
+![Build](build.png) *Software build process only: install dependencies, run Flask app, and open the local webpage.*
+
+![Final](final.png) *Final working Banana AI Judge application with banana-only detection and all existing frontend features.*

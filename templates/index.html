@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banana AI Judge — The World's Most Unnecessary Banana Analysis System</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- ============ CASE FILE NAV ============ -->
+<nav class="case-nav" id="caseNav" aria-label="Case sections">
+  <div class="case-nav__title">CASE FILE</div>
+  <a href="#results" class="case-nav__item" data-tab="01"><span>01</span>Results</a>
+  <a href="#court" class="case-nav__item" data-tab="02"><span>02</span>Court</a>
+  <a href="#compatibility" class="case-nav__item" data-tab="03"><span>03</span>Compatibility</a>
+  <a href="#fortune" class="case-nav__item" data-tab="04"><span>04</span>Fortune</a>
+  <a href="#statistics" class="case-nav__item" data-tab="05"><span>05</span>Statistics</a>
+</nav>
+
+<!-- ============ HERO / UPLOAD ============ -->
+<header class="hero" id="top">
+  <div class="hero__mark">🍌</div>
+  <h1 class="hero__title">Banana AI&nbsp;Judge</h1>
+  <p class="hero__tagline">The world's most unnecessary banana analysis system.</p>
+  <p class="hero__sub">Upload a banana. Let our advanced artificial intelligence judge it — for absolutely no reason.</p>
+
+  <div class="uploader" id="uploader">
+    <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload a banana photo">
+      <input type="file" id="fileInput" accept=".jpg,.jpeg,.png" hidden>
+      <div class="dropzone__icon">📷</div>
+      <div class="dropzone__text">Drop your banana here or choose an image</div>
+      <div class="dropzone__hint">JPG or PNG</div>
+      <img id="previewImg" class="dropzone__preview" alt="Selected banana preview" hidden>
+    </div>
+    <button class="btn btn--primary" id="judgeBtn" disabled>Judge My Banana</button>
+    <div class="uploader__status" id="uploaderStatus" role="status" aria-live="polite"></div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ 01 RESULTS ============ -->
+<section class="section" id="results">
+  <div class="section__head">
+    <span class="section__tab">01</span>
+    <h2 class="section__title">Banana Results</h2>
+    <p class="section__desc">Full analysis, filed for the permanent record.</p>
+  </div>
+
+  <div class="results__empty" id="resultsEmpty">No banana has been judged yet. Upload one above to open a case.</div>
+
+  <div class="results__body" id="resultsBody" hidden>
+    <div class="results__visual">
+      <img id="resultImage" class="evidence-photo" alt="Annotated banana analysis">
+      <div class="evidence-photo__tag" id="bananaIdTag">Banana #000</div>
+      <div class="legend">
+        <span><i class="dot dot--green"></i>Detected outline</span>
+        <span><i class="dot dot--blue"></i>Straight reference</span>
+        <span><i class="dot dot--red"></i>Max bend point</span>
+      </div>
+    </div>
+
+    <div class="results__data">
+      <div class="stat-row stat-row--big">
+        <div>
+          <div class="stat-row__label">Bend</div>
+          <div class="stat-row__value" id="statBend">0%</div>
+        </div>
+        <div>
+          <div class="stat-row__label">Curvature</div>
+          <div class="stat-row__value stat-row__value--tag" id="statCurvature">—</div>
+        </div>
+      </div>
+
+      <div class="meter-grid">
+        <div class="meter"><div class="meter__label">Beauty <span id="mBeauty">0/100</span></div><div class="meter__track"><div class="meter__fill meter__fill--gold" id="mBeautyFill"></div></div></div>
+        <div class="meter"><div class="meter__label">Intelligence <span id="mIntel">0/100</span></div><div class="meter__track"><div class="meter__fill meter__fill--teal" id="mIntelFill"></div></div></div>
+        <div class="meter"><div class="meter__label">Seriousness <span id="mSerious">0/100</span></div><div class="meter__track"><div class="meter__fill meter__fill--slate" id="mSeriousFill"></div></div></div>
+        <div class="meter"><div class="meter__label">Drama <span id="mDrama">0/100</span></div><div class="meter__track"><div class="meter__fill meter__fill--red" id="mDramaFill"></div></div></div>
+        <div class="meter"><div class="meter__label">Danger <span id="mDanger">0%</span></div><div class="meter__track"><div class="meter__fill meter__fill--red" id="mDangerFill"></div></div></div>
+        <div class="meter meter--overall"><div class="meter__label">Overall Banana Score <span id="mOverall">0/100</span></div><div class="meter__track"><div class="meter__fill meter__fill--gradient" id="mOverallFill"></div></div></div>
+      </div>
+
+      <div class="tag-grid">
+        <div class="tag-card"><div class="tag-card__k">Mood</div><div class="tag-card__v" id="tagMood">—</div></div>
+        <div class="tag-card"><div class="tag-card__k">Personality</div><div class="tag-card__v" id="tagPersonality">—</div></div>
+        <div class="tag-card"><div class="tag-card__k">Relationship</div><div class="tag-card__v" id="tagRelationship">—</div></div>
+        <div class="tag-card"><div class="tag-card__k">Horoscope</div><div class="tag-card__v" id="tagHoroscope">—</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 COURT ============ -->
+<section class="section section--court" id="court">
+  <div class="section__head">
+    <span class="section__tab">02</span>
+    <h2 class="section__title">Banana Court</h2>
+    <p class="section__desc">Justice is peeled, not served.</p>
+  </div>
+
+  <div class="results__empty" id="courtEmpty">No trial is currently in session. Judge a banana to open a case.</div>
+
+  <div class="court-doc" id="courtDoc" hidden>
+    <div class="court-doc__stamp">GUILTY</div>
+    <div class="court-doc__row"><span>CASE</span><strong id="courtCase">#BAN-0000</strong></div>
+    <div class="court-doc__row"><span>DEFENDANT</span><strong id="courtDefendant">Banana #000</strong></div>
+    <div class="court-doc__row"><span>CHARGE</span><strong id="courtCharge">—</strong></div>
+    <div class="court-doc__row"><span>EVIDENCE</span><strong id="courtEvidence">Bend: 0%</strong></div>
+    <div class="court-doc__block">
+      <span>ADDITIONAL CHARGES</span>
+      <ul id="courtAdditional"></ul>
+    </div>
+    <div class="court-doc__row"><span>SENTENCE</span><strong id="courtSentence">—</strong></div>
+    <button class="btn btn--outline" id="judgeAnotherBtn">Judge Another Banana</button>
+  </div>
+</section>
+
+<!-- ============ 03 COMPATIBILITY ============ -->
+<section class="section" id="compatibility">
+  <div class="section__head">
+    <span class="section__tab">03</span>
+    <h2 class="section__title">Banana Compatibility</h2>
+    <p class="section__desc">Two bananas enter. Science determines the rest.</p>
+  </div>
+
+  <div class="compat-uploaders">
+    <div class="compat-slot">
+      <div class="dropzone dropzone--compact" id="dropzoneA" tabindex="0" role="button" aria-label="Upload Banana A">
+        <input type="file" id="fileInputA" accept=".jpg,.jpeg,.png" hidden>
+        <img id="previewA" class="dropzone__preview" alt="Banana A preview" hidden>
+        <div class="dropzone__icon">🍌</div>
+        <div class="dropzone__text">Banana A</div>
+      </div>
+    </div>
+    <div class="compat-heart">❤️</div>
+    <div class="compat-slot">
+      <div class="dropzone dropzone--compact" id="dropzoneB" tabindex="0" role="button" aria-label="Upload Banana B">
+        <input type="file" id="fileInputB" accept=".jpg,.jpeg,.png" hidden>
+        <img id="previewB" class="dropzone__preview" alt="Banana B preview" hidden>
+        <div class="dropzone__icon">🍌</div>
+        <div class="dropzone__text">Banana B</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="compat-actions">
+    <button class="btn btn--primary" id="compareBtn" disabled>Compare Bananas</button>
+    <div class="uploader__status" id="compatStatus" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="compatibility-animation" id="compatibilityAnimation" hidden>
+    <div class="compatibility-animation__header">
+      <div class="banana-pair">
+        <div class="banana banana--a" id="bananaA" aria-hidden="true">🍌</div>
+        <div class="heart-center" id="heartCenter" aria-hidden="true">💖</div>
+        <div class="banana banana--b" id="bananaB" aria-hidden="true">🍌</div>
+      </div>
+      <div class="scan-text" id="scanText">💕 BANANA LOVE SCANNER 💕</div>
+    </div>
+
+    <div class="love-meter" aria-live="polite">
+      <div class="love-meter__track">
+        <div class="love-meter__fill" id="loveMeterFill"></div>
+      </div>
+      <div class="compatibility-percent" id="compatibilityPercent">0%</div>
+    </div>
+
+    <div class="compatibility-status" id="compatibilityStatus">🔍 SCANNING BANANA CHEMISTRY...</div>
+    <div class="heart-explosion" id="heartExplosion" aria-hidden="true"></div>
+  </div>
+
+  <div class="compat-result" id="compatResult" hidden>
+    <div class="compat-result__pair">
+      <div class="compat-card">
+        <img id="compatImgA" alt="Banana A analyzed">
+        <div class="compat-card__label">BANANA A</div>
+        <div class="compat-card__row">Bend: <strong id="compatBendA">0%</strong></div>
+        <div class="compat-card__row">Beauty: <strong id="compatBeautyA">0</strong></div>
+      </div>
+      <div class="compat-score">
+        <div class="compat-score__value" id="compatScore">0%</div>
+        <div class="compat-score__label">COMPATIBILITY</div>
+      </div>
+      <div class="compat-card">
+        <img id="compatImgB" alt="Banana B analyzed">
+        <div class="compat-card__label">BANANA B</div>
+        <div class="compat-card__row">Bend: <strong id="compatBendB">0%</strong></div>
+        <div class="compat-card__row">Beauty: <strong id="compatBeautyB">0</strong></div>
+      </div>
+    </div>
+    <div class="compat-status-line">RELATIONSHIP STATUS: <span id="compatRelationship">—</span></div>
+  </div>
+</section>
+
+<!-- ============ 04 BANANA SURVIVAL TEST ============ -->
+<section class="section" id="bananaGameSection">
+  <div class="section__head">
+    <span class="section__tab">04</span>
+    <h2 class="section__title">🍌 BANANA SURVIVAL TEST</h2>
+    <p class="section__desc">A completely useless fruit-based challenge. Survive for 20 seconds. That is all.</p>
+  </div>
+
+  <div class="banana-game-shell">
+    <div class="banana-game__controls">
+      <button class="btn btn--primary" id="bananaGameToggleBtn">Open Banana Survival Test</button>
+    </div>
+
+    <div class="banana-game-panel" id="bananaGamePanel" hidden>
+      <div class="banana-game__hud">
+        <div class="banana-game__stat"><span>SCORE</span><strong id="bananaGameScore">0</strong></div>
+        <div class="banana-game__stat"><span>TIME</span><strong id="bananaGameTime">20</strong></div>
+        <div class="banana-game__stat"><span>LIVES</span><strong id="bananaGameLives">❤️❤️❤️</strong></div>
+      </div>
+
+      <div class="banana-game__area" id="bananaGameArea" tabindex="0">
+        <div class="banana-game__banana" id="bananaGamePlayer">🍌</div>
+        <div class="banana-game__message" id="bananaGameMessage"></div>
+
+        <div class="banana-game__overlay" id="bananaGameOverlay" hidden>
+          <div class="banana-game__overlay-box">
+            <div class="banana-game__overlay-kicker">🍌 BANANA SURVIVAL COMPLETE</div>
+            <div class="banana-game__overlay-label">FINAL SCORE</div>
+            <div class="banana-game__overlay-score" id="bananaGameFinalScore">0</div>
+            <div class="banana-game__overlay-rank" id="bananaGameRank">FRUIT AMATEUR</div>
+            <p class="banana-game__overlay-text">Congratulations.<br>You have successfully accomplished absolutely nothing.</p>
+            <div class="banana-game__overlay-note">YOUR SCORE HAS BEEN RECORDED.<br>FOR NO PARTICULAR REASON.<br>🍌</div>
+            <button class="btn btn--primary" id="bananaGameRestartBtn">PLAY AGAIN</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="banana-game__uselessness">
+        <div class="banana-game__meter-label">USELESSNESS LEVEL</div>
+        <div class="banana-game__meter">
+          <div class="banana-game__meter-fill" id="bananaGameMeterFill"></div>
+        </div>
+        <div class="banana-game__meter-caption">Scientific accuracy: questionable.</div>
+      </div>
+
+      <div class="banana-game__footer-actions">
+        <button class="btn btn--outline" id="bananaGameCloseBtn">Close Game</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 FORTUNE ============ -->
+<section class="section section--fortune" id="fortune">
+  <div class="section__head">
+    <span class="section__tab">05</span>
+    <h2 class="section__title">Banana Fortune Teller</h2>
+    <p class="section__desc">Completely fictional. Emotionally accurate.</p>
+  </div>
+
+  <div class="fortune-ticket">
+    <div class="fortune-row"><span>TODAY</span><p id="fToday">Pull to reveal.</p></div>
+    <div class="fortune-row"><span>TOMORROW</span><p id="fTomorrow">Pull to reveal.</p></div>
+    <div class="fortune-row"><span>CAREER</span><p id="fCareer">Pull to reveal.</p></div>
+    <div class="fortune-row"><span>LOVE</span><p id="fLove">Pull to reveal.</p></div>
+    <div class="fortune-row fortune-row--split">
+      <div><span>LUCKY FRUIT</span><p id="fFruit">—</p></div>
+      <div><span>LUCKY NUMBER</span><p id="fNumber">—</p></div>
+    </div>
+    <div class="fortune-row"><span>DESTINY</span><p id="fDestiny">Pull to reveal.</p></div>
+  </div>
+  <button class="btn btn--outline" id="fortuneBtn">Reveal My Banana Fortune</button>
+</section>
+
+<!-- ============ 06 STATISTICS ============ -->
+<section class="section" id="statistics">
+  <div class="section__head">
+    <span class="section__tab">06</span>
+    <h2 class="section__title">Banana Statistics</h2>
+    <p class="section__desc">Session totals. Resets when the server restarts.</p>
+  </div>
+
+  <div class="stat-board">
+    <div class="stat-block"><div class="stat-block__v" id="sTotal">0</div><div class="stat-block__k">Bananas Judged</div></div>
+    <div class="stat-block"><div class="stat-block__v" id="sAvgBend">0%</div><div class="stat-block__k">Average Bend</div></div>
+    <div class="stat-block"><div class="stat-block__v" id="sMostCurved">0%</div><div class="stat-block__k">Most Curved</div></div>
+    <div class="stat-block"><div class="stat-block__v" id="sAvgBeauty">0</div><div class="stat-block__k">Average Beauty</div></div>
+    <div class="stat-block"><div class="stat-block__v" id="sMood">—</div><div class="stat-block__k">Most Common Mood</div></div>
+    <div class="stat-block"><div class="stat-block__v" id="sPersonality">—</div><div class="stat-block__k">Most Common Personality</div></div>
+    <div class="stat-block"><div class="stat-block__v" id="sUselessness">99.7%</div><div class="stat-block__k">Average Uselessness</div></div>
+    <div class="stat-block"><div class="stat-block__v" id="sChampion">—</div><div class="stat-block__k">Banana Champion</div></div>
+  </div>
+</section>
+
+<!-- ============ 07 USELESSNESS ============ -->
+<section class="section section--useless" id="uselessness">
+  <div class="section__head">
+    <span class="section__tab">07</span>
+    <h2 class="section__title">How Useful Is This Website?</h2>
+    <p class="section__desc">An honest self-assessment.</p>
+  </div>
+
+  <div class="dial-pair">
+    <div class="dial">
+      <div class="dial__value">0.01%</div>
+      <div class="dial__label">USEFULNESS</div>
+    </div>
+    <div class="dial dial--useless">
+      <div class="dial__value">99.99%</div>
+      <div class="dial__label">USELESSNESS</div>
+    </div>
+  </div>
+
+  <p class="useless-line" id="uselessLine">Mission accomplished.</p>
+  <button class="btn btn--outline" id="recalcBtn">Recalculate Uselessness</button>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Banana AI Judge — technically impressive, completely unnecessary.</p>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
